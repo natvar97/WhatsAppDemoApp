@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "209160336882",
+    "project_id": "whatsappdemo-cef4a",
+    "storage_bucket": "whatsappdemo-cef4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209160336882:android:accef4937282362c17a76b",
+        "android_client_info": {
+          "package_name": "com.indialone.whatsappdemoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209160336882-47244m3i19ucv1lsbnnd91c955o8bmcv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDukdEp2Ha1moRWTnCk3_dqVBd8FTHhjLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209160336882-47244m3i19ucv1lsbnnd91c955o8bmcv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
