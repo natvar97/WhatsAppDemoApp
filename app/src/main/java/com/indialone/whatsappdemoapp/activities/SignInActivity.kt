@@ -1,4 +1,4 @@
-package com.indialone.whatsappdemoapp
+package com.indialone.whatsappdemoapp.activities
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
+import com.indialone.whatsappdemoapp.R
 import com.indialone.whatsappdemoapp.databinding.ActivitySignInBinding
 import com.indialone.whatsappdemoapp.models.User
 

@@ -1,4 +1,4 @@
-package com.indialone.whatsappdemoapp
+package com.indialone.whatsappdemoapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
+import com.indialone.whatsappdemoapp.R
 import com.indialone.whatsappdemoapp.adapters.FragmentAdapter
 import com.indialone.whatsappdemoapp.databinding.ActivityMainBinding
 
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
-        inflater.inflate(R.menu.main_menu , menu)
+        inflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -45,6 +46,9 @@ class MainActivity : AppCompatActivity() {
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 finish()
+            }
+            R.id.action_group_chat -> {
+                startActivity(Intent(this, GroupChatActivity::class.java))
             }
         }
 

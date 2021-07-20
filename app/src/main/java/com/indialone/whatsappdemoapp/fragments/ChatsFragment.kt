@@ -20,6 +20,7 @@ class ChatsFragment : Fragment() {
     private lateinit var mBinding: FragmentChatsBinding
     private var list = ArrayList<User>()
     private lateinit var mFirebaseDatabase: FirebaseDatabase
+    private lateinit var adapter : UsersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +33,22 @@ class ChatsFragment : Fragment() {
     ): View? {
         mBinding = FragmentChatsBinding.inflate(inflater, container, false)
 
-        val adapter = UsersAdapter(mBinding.root.context, list)
+        adapter = UsersAdapter(mBinding.root.context, list)
         mBinding.chatsRecyclerview.adapter = adapter
         mBinding.chatsRecyclerview.layoutManager = LinearLayoutManager(mBinding.root.context)
 
         mFirebaseDatabase = FirebaseDatabase.getInstance()
+        loadChats()
+
+        return mBinding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadChats()
+    }
+
+    private fun loadChats() {
         mFirebaseDatabase.reference.child("users")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -54,9 +66,6 @@ class ChatsFragment : Fragment() {
                 }
 
             })
-
-        return mBinding.root
     }
-
 
 }
