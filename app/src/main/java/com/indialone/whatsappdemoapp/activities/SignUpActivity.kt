@@ -15,7 +15,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivitySignUpBinding
     private lateinit var mFirebaseAuth: FirebaseAuth
     private lateinit var mFirebaseDatabase: FirebaseDatabase
-    private lateinit var mProgressDialog : ProgressDialog
+    private lateinit var mProgressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +50,23 @@ class SignUpActivity : AppCompatActivity() {
                         mFirebaseDatabase.reference.child("users").child(id).setValue(user)
 
                         Toast.makeText(this, "User Created Successfully", Toast.LENGTH_SHORT).show()
+//                        startActivity(Intent(this, SignInActivity::class.java))
+                        mFirebaseAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener { taskLogin ->
+                                mProgressDialog.dismiss()
+                                if (taskLogin.isSuccessful) {
+                                    startActivity(Intent(this, MainActivity::class.java))
+                                    finish()
+                                } else {
+                                    Toast.makeText(
+                                        this,
+                                        taskLogin.exception!!.message.toString(),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+
+                        finish()
                     } else {
                         Toast.makeText(
                             this,
@@ -61,7 +78,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         mBinding.tvAlreadyHaveAccount.setOnClickListener {
-            startActivity(Intent(this , SignInActivity::class.java))
+            startActivity(Intent(this, SignInActivity::class.java))
         }
 
 

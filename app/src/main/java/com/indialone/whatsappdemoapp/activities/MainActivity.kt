@@ -36,9 +36,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.action_settings -> {
-
+                startActivity(Intent(this, SettingsActivity::class.java))
             }
             R.id.action_logout -> {
                 mFirebaseAuth.signOut()

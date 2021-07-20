@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -20,7 +21,7 @@ class ChatsFragment : Fragment() {
     private lateinit var mBinding: FragmentChatsBinding
     private var list = ArrayList<User>()
     private lateinit var mFirebaseDatabase: FirebaseDatabase
-    private lateinit var adapter : UsersAdapter
+    private lateinit var adapter: UsersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +57,8 @@ class ChatsFragment : Fragment() {
                     for (dataSnapShot in snapshot.children) {
                         val users = dataSnapShot.getValue(User::class.java)
                         users!!.userId = dataSnapShot.key!!
-                        list.add(users)
+                        if (users.userId != FirebaseAuth.getInstance().uid)
+                            list.add(users)
                     }
                     adapter.notifyDataSetChanged()
                 }

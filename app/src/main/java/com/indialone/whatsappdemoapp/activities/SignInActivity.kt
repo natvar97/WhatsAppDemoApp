@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -23,7 +24,7 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivitySignInBinding
     private lateinit var mFirebaseAuth: FirebaseAuth
     private lateinit var mProgressDialog: ProgressDialog
-    private lateinit var mGoogleSignInClient : GoogleSignInClient
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mFirebaseDatabase: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +55,14 @@ class SignInActivity : AppCompatActivity() {
             val email = mBinding.etEmail.text.toString().trim { it <= ' ' }
             val password = mBinding.etPassword.text.toString().trim { it <= ' ' }
 
+            if (TextUtils.isEmpty(email)) {
+                mBinding.etEmail.error = "Enter valid email"
+                return@setOnClickListener
+            }
+            if (TextUtils.isEmpty(password)) {
+                mBinding.etPassword.error = "Enter valid password"
+                return@setOnClickListener
+            }
             mProgressDialog.show()
 
             mFirebaseAuth.signInWithEmailAndPassword(email, password)
@@ -76,9 +85,9 @@ class SignInActivity : AppCompatActivity() {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
 
-        mBinding.btnGoogle.setOnClickListener {
-            signIn()
-        }
+//        mBinding.btnGoogle.setOnClickListener {
+//            signIn()
+//        }
 
         if (mFirebaseAuth.currentUser != null) {
             startActivity(Intent(this, MainActivity::class.java))
@@ -125,12 +134,13 @@ class SignInActivity : AppCompatActivity() {
                     users.profileImage = user.photoUrl!!.toString()
                     mFirebaseDatabase.reference.child("users").child(user.uid).setValue(users)
 
-                    startActivity(Intent(this , MainActivity::class.java))
+                    startActivity(Intent(this, MainActivity::class.java))
 //                    updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("TAG", "signInWithCredential:failure", task.exception)
-                    Snackbar.make(mBinding.root, "Authentication Failed", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(mBinding.root, "Authentication Failed", Snackbar.LENGTH_LONG)
+                        .show()
 //                    updateUI(null)
                 }
             }
